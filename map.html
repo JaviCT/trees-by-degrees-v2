@@ -1,15 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+<meta charset="utf-8">
   <head>
-    <meta charset="utf-8">
     
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script> 
     <script src="https://cdn-webgl.wrld3d.com/wrldjs/dist/latest/wrld.js"></script>
     <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
     <script src="https://cdn-webgl.wrld3d.com/wrldjs/addons/marker_controller/latest/marker_controller.js"></script>
+    <link rel="stylesheet" href="css/style.css">
 
-    <title>🌳 Trees by degrees 🌍</title>
+    <title>Trees by degrees 🌍</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico" />
+
+    <link rel="stylesheet" href="css/leaflet.css" />
+    <script src="js/leaflet.js"></script> 
+    <script src="js/wrld.js"></script>
+    <script src="js/jquery-2.1.0.min.js"></script>
+    <script src="js/marker_controller.js"></script>    
   
     <style>
         body {
@@ -23,8 +34,9 @@
 
 </head>
 <body>
-    
-    <div id="map"></div>
+
+
+    <div id="map" ></div>
     
     <script>
 
@@ -32,13 +44,13 @@
 
         var map = L.eeGeo.map('map', key, {
             center: [ 51.509, -0.08 ],
-            zoom: 15
+            zoom: 16
         });
 
         var LeafIcon = L.Icon.extend({
             options: {
-                iconSize:     [10, 50],
-                iconAnchor:   [10, 50]
+                iconSize:     [20, 50],
+                iconAnchor:   [20, 50]
             }
         });
 
@@ -52,16 +64,51 @@
         ];
         
         $.getJSON("data/london_select.json", function(data) {
-            var less_trees=10;
-            for (i = 0; i < less_trees* data.length -1; i+=less_trees) {
-                let tree = data[i];
-                let lat = tree['latitude'];
-                let long = tree['longitude'];
-                let icon = trees[Math.floor(Math.random() * trees.length)]; // random tree
-                L.marker( [ lat, long ], { icon: icon } ).addTo(map);
+            var less_trees = 10;
+            for (i = 0; i < less_trees * data.length - 1; i+=less_trees) {
+                if (data[i]) {
+                    let tree = data[i];
+                    let lat = tree['latitude'];
+                    let long = tree['longitude'];
+                    let icon = trees[Math.floor(Math.random() * trees.length)]; // random tree
+                    L.marker( [ lat, long ], { icon: icon } ).addTo(map).bindPopup("In a am tree!");;
+                }
             };
         });
 
+
+
     </script>
+
+<div class="my-profile" style="position: fixed; top: 5px; right: 15px; border: 5px;">
+
+    <img src="img/me_small.jpg" class="profile-picture" />
+    <div class="bloc">
+        <div class="content">
+            <span class="name">Enric Moreu</span>
+            <h1 class="fonction">PhD candidate, Dublin</h1>
+
+            <p class="presentation">
+                Trees planted:
+                🌳🌳🌳🌳🌲🌲🌴
+
+            </p>
+
+        </div>
+
+        <ul class="social-media">
+
+
+            <li style="border-left:3px solid #44abd1;background: #00aced;">
+                Profile
+
+            <li style="border-left:3px solid #cf78cf;background: #cf78cf;">
+                Friends
+            <li style="border-left:3px solid #db6d6d;background: #db6d6d;">
+                Log out
+        </ul>
+
+    </div>
+</div>
 </body>
 </html>
