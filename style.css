@@ -1,0 +1,132 @@
+/* Made with ♥ by BROUMI Youssef - www.broumi.com */
+
+
+@font-face {
+    font-family: "ColaborateThinRegular";
+    font-style: normal;
+    font-weight: normal;
+    src: url("http://www.broumi.com/freebies/fonts/ColabThi-webfont.ttf") format("truetype"), 
+		 url("http://www.broumi.com/freebies/fonts/Colaborate-fontfacekit/ColabThi-webfont.svg#ColaborateThinRegular") format("svg");}
+
+@font-face {
+    font-family: "Bellota";
+    font-style: normal;
+    font-weight: normal;
+    src: url("http://www.broumi.com/freebies/fonts/Bellota-Regular.otf") format("truetype"), 
+		 url("http://www.broumi.com/freebies/fonts/Bellota-Regular.svg#ColaborateThinRegular") format("svg");}
+
+a {
+	text-decoration:none;
+	outline:none;}
+
+body {
+	margin:0;
+	padding:0;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover; }
+
+.title {
+	text-align:center;
+	margin:auto;
+	font-family:arial;
+	font-size:50px;
+	color:#FFF;
+	margin: 2% auto 0;}
+
+.my-profile {
+	height:142px;
+	width:142px;
+	background-color:#f5f5f5;
+	margin: 1% auto;
+	border-radius: 100px 100px 100px 100px;
+	box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.5);
+	transition: all 0.7s ease 0s;
+	overflow:hidden;}
+	
+.my-profile:hover {
+	width:600px;
+	transition: all 0.7s ease 0s;}
+	
+.profile-picture {
+	float:left;}
+	
+.bloc {
+	height:142px;
+	width:600px;}
+	
+.content {
+	height:120px;
+	width:330px;
+	float:left;
+	margin:12px 0 0 15px;
+	font-family:arial;}
+	
+.name {
+	font-size:18px;
+	color:#fe6464;}
+	
+.fonction {
+	font-size:14px;
+	color:#a9a9a9;
+	font-weight:normal;
+	margin:0;}
+	
+.presentation {
+	font-family:
+	arial;
+	margin:10px 0 0;
+  font-size:14px;
+  color:#474747;}
+	
+.social-media {
+	margin:0;
+	padding:0;
+	height:142px;
+	width:90px;
+	float:left;
+	list-style:none;
+	margin-left:20px;}
+	
+li {
+	width:110px;
+	height:36px;
+	transition: all 0.5s ease 0s;}
+	
+li:hover {
+	padding-left:10px;
+	transition: all 0.5s ease 0s;}
+
+.download {
+	width:424px;
+	height:42px;
+	margin:auto;}
+	
+.btn-download {
+	height:30px;
+	width:190px;
+	background:#1bce99;
+	border-radius: 4px;
+	border:1px solid #FFF;
+	text-align:center;
+	font-family:arial;
+	font-size:16px;
+	color:#FFFFFF;
+	padding-top:10px;}
+	
+.share {
+	width:424px;
+	height:42px;
+	margin:30px auto;}
+	
+.facebook {
+	height: 20px;
+	width: 110px;
+	float:left;
+	margin-left: 46px;}
+	
+.twitter {
+	float: right;
+    height: 20px;
+    width: 145px;}
