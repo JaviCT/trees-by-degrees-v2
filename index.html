@@ -2,12 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-
-    
-    <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="index.js"></script>
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="js/jquery-2.1.0.min.js"></script> 
+    <link rel="stylesheet" href="css/style.css">  
   
     <title>🌳 Trees by degrees 🌍</title>
     
@@ -22,27 +20,22 @@
     </style>
 
 </head>
-<body style="height: 100%;" onload="getCountries()">
+<body style="height: 100%;">
     
-    <div class="viewer" style="height: 100%;">
-    
-        <h1 class="title1 display-4" style="position: absolute; z-index: 1; color: aliceblue; left: 40%;">Trees By Degrees</h1>
-        <select id="selectCountries" style="position: absolute; z-index: 1; top: 40px;"></select>
-        <select id="selectCities" style="position: absolute; z-index: 1;"></select>
-        <a href="map.html" style="position: absolute; z-index: 1; color: aliceblue; left: 40%;">MAP</a>
-        
-        <iframe class="viewer" style="width: 100%; height: 100%;" src="https://jeromeetienne.github.io/threex.planets/examples/earth.html" frameborder="0"/>
+    <h1 class="title1 display-4" style="position: absolute; z-index: 1; color: aliceblue; left: 35%;">Trees By Degrees</h1>
+    <div style="position: absolute; z-index: 1; top: 50%; left: 40%; width: 400px;">
+        <select class="custom-select float-left" style="width: 250px;">
+            <option>Dublin</option>
+            <option selected>London</option>
+            <option>Barcelona</option>
+            <option>Tokio</option>
+        </select>
+        <a href="map.html" type="button" class="btn btn-primary float-right" style="width: 150px;">Go to city</a>
     </div>
-    <script>
-    $( document.body )
-        .click(function() {
-        $( document.body ).append( $( "<div>" ) );
-        var n = $( "div" ).length;
-        $( "span" ).text( "There are " + n + " divs." +
-            "Click to add more.");
-        })
-        // Trigger the click to start
-        .trigger( "click" );
-    </script>
+    <div class="viewer" style="height: 100%;">
+        <iframe class="viewer" style="width: 100%; height: 100%;" src="https://jeromeetienne.github.io/threex.planets/examples/earth.html" frameborder="0"></iframe>
+    </div>
+    
+    
 </body>
 </html>
