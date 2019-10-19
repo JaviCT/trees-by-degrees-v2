@@ -43,9 +43,12 @@
         });
 
         var trees = [ 
-            new LeafIcon( {iconUrl: 'img/trees/tree1.png'} ), 
-            new LeafIcon( {iconUrl: 'img/trees/tree2.png'} ), 
-            new LeafIcon( {iconUrl: 'img/trees/tree3.png'} )
+            new LeafIcon( {iconUrl: 'img/trees/tree1.png', iconSize: [38, 95],
+    iconAnchor: [22, 94],} ), 
+            new LeafIcon( {iconUrl: 'img/trees/tree2.png', iconSize: [38, 95],
+    iconAnchor: [22, 94],} ), 
+            new LeafIcon( {iconUrl: 'img/trees/tree3.png', iconSize: [38, 95],
+    iconAnchor: [22, 94],} )
         ];
         
         $.getJSON("data/london_select.json", function(data) {
