@@ -3,17 +3,22 @@
 <meta charset="utf-8">
   <head>
     
-    <title>Trees by degrees 🌍</title>
+    <title>Trees by degrees</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     <!-- <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico" /> -->
 
     <link rel="stylesheet" href="css/leaflet.css" />
+    <link rel="stylesheet" href="css/sidebar.css" />
+    <link rel="stylesheet" href="fontawesome/css/all.css" />
+
     <script src="js/leaflet.js"></script> 
     <script src="js/wrld.js"></script>
     <script src="js/jquery-2.1.0.min.js"></script>
-    <script src="js/marker_controller.js"></script> 
+    <script src="js/marker_controller.js"></script>
+    <script src="js/L.Control.Sidebar.js"></script>
+    <script src="js/sidebar.js"></script>
     <link rel="stylesheet" href="css/style.css">   
   
     <style>
@@ -29,10 +34,57 @@
 </head>
 <body>
 
-
-    <div id="map" ></div>
+    <div id="sidebar" class="sidebar collapsed">
     
+        <div class="sidebar-tabs">
+            <ul role="tablist">
+                <li><a href="#home" role="tab"><i class="fa fa-bars"></i></a></li>
+                <li class="disabled"><a href="#tree" role="tab"><i class="fa fa-feather"></i></a></li>
+            </ul>
+            <ul role="tablist">
+                <li><a href="#contact" role="tab"><i class="fa fa-home"></i></a></li>
+                <li><a href="https://github.com/dazcona" role="tab" target="_blank"><i class="fa fa-home"></i></a></li>
+            </ul>
+        </div>
+                    
+        <div class="sidebar-content">
+
+            <div class="sidebar-pane" id="park">
+                <h1 class="sidebar-header">
+                    Espacios Dotacionales
+                    <span class="sidebar-close">
+                        <i class="fa fa-caret-left"></i>
+                    </span>
+                </h1>
+                <p>Estos edificios públicos se destinan para:</p>
+                <ul>
+                    <li>Colegios</li>
+                    <li>Centro de Salud</li>
+                    <li>Biblioteca</li>
+                </ul>
+            </div>
+
+            <div class="sidebar-pane" id="contact">
+                <h1 class="sidebar-header">
+                    Contacto
+                    <span class="sidebar-close">
+                    <i class="fa fa-caret-left"></i></span>
+                </h1>
+                <p>Para...: <br>
+                    <a href="mailto:david.azcona.perez@gmail.com">david.azcona.perez@gmail.com</a>
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+    
+    <div id="map" class="sidebar-map"></div>
+
+    <script src="js/small.js"></script>
     <script>
+
+        // MAP
 
         var key = '68fc6881bbfee411f30452ab9a919dcc'
 
@@ -40,6 +92,12 @@
             center: [ 51.509, -0.08 ],
             zoom: 16
         });
+
+        // SIDEBAR
+
+        var sidebar = L.control.sidebar('sidebar').addTo(map);
+
+        // DATA
 
         var LeafIcon = L.Icon.extend({
             options: {
@@ -49,28 +107,40 @@
         });
 
         var trees = [ 
-            new LeafIcon( {iconUrl: 'img/trees/tree1.png', iconSize: [38, 95],
-    iconAnchor: [22, 94],} ), 
-            new LeafIcon( {iconUrl: 'img/trees/tree2.png', iconSize: [38, 95],
-    iconAnchor: [22, 94],} ), 
-            new LeafIcon( {iconUrl: 'img/trees/tree3.png', iconSize: [38, 95],
-    iconAnchor: [22, 94],} )
+            new LeafIcon( { iconUrl: 'img/trees/tree1.png' } ), 
+            new LeafIcon( { iconUrl: 'img/trees/tree2.png' } ), 
+            new LeafIcon( { iconUrl: 'img/trees/tree3.png' } ),
+            new LeafIcon( { iconUrl: 'img/trees/tree1_todo.png' } ), 
+            new LeafIcon( { iconUrl: 'img/trees/tree2_todo.png' } ), 
+            new LeafIcon( { iconUrl: 'img/trees/tree3_todo.png' } )
         ];
         
         $.getJSON("data/london_select.json", function(data) {
+            
             var less_trees = 10;
             for (i = 0; i < less_trees * data.length - 1; i+=less_trees) {
+                
                 if (data[i]) {
+                    
                     let tree = data[i];
                     let lat = tree['latitude'];
                     let long = tree['longitude'];
                     let icon = trees[Math.floor(Math.random() * trees.length)]; // random tree
-                    L.marker( [ lat, long ], { icon: icon } ).addTo(map).bindPopup("In a am tree!");;
-                }
-            };
+                    
+                    L.marker( [ lat, long ], { icon: icon } ).addTo(map).on('click', 
+                        function (event) {
+                            if (event.latlng) {
+                                map.setView(event.latlng); // Center MAP
+                            }
+                            sidebar.open('park');
+                        });
+
+                };
+            }
+        
         });
 
-
+        L.geoJSON(lezkairu, {}).addTo(map);
 
     </script>
 
@@ -85,7 +155,6 @@
             <p class="presentation">
                 Trees planted:
                 🌳🌳🌳🌳🌲🌲🌴
-
             </p>
 
         </div>
