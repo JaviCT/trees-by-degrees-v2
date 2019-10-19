@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script> 
+    <script src="https://cdn-webgl.wrld3d.com/wrldjs/dist/latest/wrld.js"></script>
+    <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+    <script src="https://cdn-webgl.wrld3d.com/wrldjs/addons/marker_controller/latest/marker_controller.js"></script>
+
+    <title>🌳 Trees by degrees 🌍</title>
+  
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+        html, body, #map {
+            height: 100%;
+        }
+    </style>
+
+</head>
+<body>
+    
+    <div id="map"></div>
+    
+    <script>
+
+        var key = '68fc6881bbfee411f30452ab9a919dcc'
+
+        var map = L.eeGeo.map('map', key, {
+            center: [ 51.509, -0.08 ],
+            zoom: 15
+        });
+
+        var LeafIcon = L.Icon.extend({
+            options: {
+                iconSize:     [10, 50],
+                iconAnchor:   [10, 50]
+            }
+        });
+
+        var trees = [ 
+            new LeafIcon( {iconUrl: 'img/trees/tree1.png'} ), 
+            new LeafIcon( {iconUrl: 'img/trees/tree2.png'} ), 
+            new LeafIcon( {iconUrl: 'img/trees/tree3.png'} )
+        ];
+        
+        $.getJSON("data/london_select.json", function(data) {
+            var less_trees=10;
+            for (i = 0; i < less_trees* data.length -1; i+=less_trees) {
+                let tree = data[i];
+                let lat = tree['latitude'];
+                let long = tree['longitude'];
+                let icon = trees[Math.floor(Math.random() * trees.length)]; // random tree
+                L.marker( [ lat, long ], { icon: icon } ).addTo(map);
+            };
+        });
+
+    </script>
+</body>
+</html>

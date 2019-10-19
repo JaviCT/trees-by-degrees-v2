@@ -2,12 +2,6 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script> 
-    <script src="https://cdn-webgl.wrld3d.com/wrldjs/dist/latest/wrld.js"></script>
-    <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
-    <script src="https://cdn-webgl.wrld3d.com/wrldjs/addons/marker_controller/latest/marker_controller.js"></script>
 
     <title>🌳 Trees by degrees 🌍</title>
   
@@ -16,7 +10,7 @@
             padding: 0;
             margin: 0;
         }
-        html, body, #map {
+        html, body {
             height: 100%;
         }
     </style>
@@ -24,63 +18,18 @@
 </head>
 <body>
     
-    <div id="map"></div>
+    <div class="viewer">
     
-    <script>
-
-        var key = '68fc6881bbfee411f30452ab9a919dcc'
-
-        var map = L.eeGeo.map('map', key, {
-            center: [ 51.509, -0.08 ],
-            zoom: 15
-        });
-
-        // L.marker([51.517327, -0.120005]).addTo(map);
-
-        // L.polygon([[51.522771, -0.125772],
-        //         [51.521520, -0.124192],
-        //         [51.520631, -0.126358],
-        //         [51.521963, -0.127895]]).addTo(map);
-
-        // L.polyline([[51.521788, -0.117101],
-        //     [51.520732, -0.116524],
-        //     [51.520430, -0.117641],
-        //     [51.519873, -0.119602],
-        //     [51.519034, -0.120993],
-        //     [51.518784, -0.121537],
-        //     [51.517265, -0.125088],
-        //     [51.516257, -0.124466]]).addTo(map);
-
-        var LeafIcon = L.Icon.extend({
-            options: {
-                // shadowUrl: 'img/leaf-shadow.png',
-                iconSize:     [10, 50],
-                // shadowSize:   [50, 64],
-                iconAnchor:   [10, 50],
-                // shadowAnchor: [4, 62],
-                // popupAnchor:  [-3, -76]
-            }
-        });
-
-        var trees = [ 
-            new LeafIcon( {iconUrl: 'img/trees/tree1.png'} ), 
-            new LeafIcon( {iconUrl: 'img/trees/tree2.png'} ), 
-            new LeafIcon( {iconUrl: 'img/trees/tree3.png'} )
-        ];
+        <p class="title1 display-4">Trees By Degrees</p>
         
-        // $.getJSON("/data/london_small.json" + keyword
-        $.getJSON("/data/london_select.json", function(data) {
-            var less_trees=10;
-            for (i = 0; i < less_trees* data.length -1; i+=less_trees) {
-                let tree = data[i];
-                let lat = tree['latitude'];
-                let long = tree['longitude'];
-                let icon = trees[Math.floor(Math.random() * trees.length)]; // random tree
-                L.marker( [ lat, long ], { icon: icon } ).addTo(map);
-            };
+        <iframe class="viewer" src="https://jeromeetienne.github.io/threex.planets/examples/earth.html" frameborder="0"/>
+            
+        <div class="selector">    
+        </div>
 
-        });
-
-    </script>
+        <a href="map.html">MAP</a>
+    
+    </div>
+    
 </body>
 </html>
