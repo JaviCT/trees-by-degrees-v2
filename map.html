@@ -70,7 +70,7 @@
                     <span class="sidebar-close">
                     <i class="fa fa-caret-left"></i></span>
                 </h1>
-                <p>Para más información, por favor contactar con: <br>
+                <p>Para...: <br>
                     <a href="mailto:david.azcona.perez@gmail.com">david.azcona.perez@gmail.com</a>
                 </p>
             </div>
@@ -80,7 +80,8 @@
     </div>
     
     <div id="map" class="sidebar-map"></div>
-    
+
+    <script src="js/small.js"></script>
     <script>
 
         // MAP
@@ -136,7 +137,7 @@
         
         });
 
-
+        L.geoJSON(lezkairu, {}).addTo(map);
 
     </script>
 
