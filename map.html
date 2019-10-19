@@ -49,13 +49,15 @@
         ];
         
         $.getJSON("data/london_select.json", function(data) {
-            var less_trees=10;
-            for (i = 0; i < less_trees* data.length -1; i+=less_trees) {
-                let tree = data[i];
-                let lat = tree['latitude'];
-                let long = tree['longitude'];
-                let icon = trees[Math.floor(Math.random() * trees.length)]; // random tree
-                L.marker( [ lat, long ], { icon: icon } ).addTo(map);
+            var less_trees = 10;
+            for (i = 0; i < less_trees * data.length - 1; i+=less_trees) {
+                if (data[i]) {
+                    let tree = data[i];
+                    let lat = tree['latitude'];
+                    let long = tree['longitude'];
+                    let icon = trees[Math.floor(Math.random() * trees.length)]; // random tree
+                    L.marker( [ lat, long ], { icon: icon } ).addTo(map);
+                }
             };
         });
 
