@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+<meta charset="utf-8">
   <head>
     
-    <title>🌳 Trees by degrees 🌍</title>
+    <title>Trees by degrees 🌍</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" />
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico" />
 
     <link rel="stylesheet" href="css/leaflet.css" />
     <link rel="stylesheet" href="css/sidebar.css" />
@@ -18,6 +19,7 @@
     <script src="js/marker_controller.js"></script>
     <script src="js/L.Control.Sidebar.js"></script>
     <script src="js/sidebar.js"></script>
+    <link rel="stylesheet" href="css/style.css">   
   
     <style>
         body {
@@ -87,7 +89,7 @@
 
         var map = L.eeGeo.map('map', key, {
             center: [ 51.509, -0.08 ],
-            zoom: 15
+            zoom: 16
         });
 
         // SIDEBAR
@@ -122,17 +124,11 @@
                     let icon = trees[Math.floor(Math.random() * trees.length)]; // random tree
                     
                     L.marker( [ lat, long ], { icon: icon } ).addTo(map).on('click', 
-                        
                         function (event) {
-        
                             if (event.latlng) {
-
-                                // Center MAP
-                                map.setView(event.latlng);
+                                map.setView(event.latlng); // Center MAP
                             }
-                            
                             sidebar.open('park');
-                        
                         });
 
                 };
@@ -140,6 +136,38 @@
         
         });
 
+
+
     </script>
+
+<div class="my-profile" style="position: fixed; top: 5px; right: 15px; border: 5px;">
+
+    <img src="img/me_small.jpg" class="profile-picture" />
+    <div class="bloc">
+        <div class="content">
+            <span class="name">Enric Moreu</span>
+            <h1 class="fonction">PhD candidate, Dublin</h1>
+
+            <p class="presentation">
+                Trees planted:
+                🌳🌳🌳🌳🌲🌲🌴
+            </p>
+
+        </div>
+
+        <ul class="social-media">
+
+
+            <li style="border-left:3px solid #44abd1;background: #00aced;">
+                Profile
+
+            <li style="border-left:3px solid #cf78cf;background: #cf78cf;">
+                Friends
+            <li style="border-left:3px solid #db6d6d;background: #db6d6d;">
+                Log out
+        </ul>
+
+    </div>
+</div>
 </body>
 </html>
