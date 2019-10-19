@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
     
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script> 
@@ -11,6 +10,16 @@
     <link rel="stylesheet" href="./style.css">
 
     <title>🌳 Trees by degrees 🌍</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" />
+
+    <link rel="stylesheet" href="css/leaflet.css" />
+    <script src="js/leaflet.js"></script> 
+    <script src="js/wrld.js"></script>
+    <script src="js/jquery-2.1.0.min.js"></script>
+    <script src="js/marker_controller.js"></script>    
   
     <style>
         body {
@@ -39,15 +48,15 @@
 
         var LeafIcon = L.Icon.extend({
             options: {
-                iconSize:     [10, 50],
-                iconAnchor:   [10, 50]
+                iconSize:     [20, 50],
+                iconAnchor:   [20, 50]
             }
         });
 
         var trees = [ 
-            new LeafIcon( {iconUrl: 'img/trees/tree1.png'} ), 
-            new LeafIcon( {iconUrl: 'img/trees/tree2.png'} ), 
-            new LeafIcon( {iconUrl: 'img/trees/tree3.png'} )
+            new LeafIcon( { iconUrl: 'img/trees/tree1.png' } ), 
+            new LeafIcon( { iconUrl: 'img/trees/tree2.png' } ), 
+            new LeafIcon( { iconUrl: 'img/trees/tree3.png' } )
         ];
         
         $.getJSON("data/london_select.json", function(data) {
@@ -58,7 +67,7 @@
                     let lat = tree['latitude'];
                     let long = tree['longitude'];
                     let icon = trees[Math.floor(Math.random() * trees.length)]; // random tree
-                    L.marker( [ lat, long ], { icon: icon } ).addTo(map);
+                    L.marker( [ lat, long ], { icon: icon } ).addTo(map).bindPopup("In a am tree!");;
                 }
             };
         });
