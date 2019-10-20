@@ -34,6 +34,8 @@
 </head>
 <body>
 
+    <!-- SIDEBAR -->
+
     <div id="sidebar" class="sidebar collapsed">
     
         <div class="sidebar-tabs">
@@ -77,10 +79,25 @@
 
     </div>
     
+    <!-- MAP -->
+
     <div id="map" class="sidebar-map"></div>
 
+    <!-- HEATMAP DATA -->
+
     <script src="js/heatmap.js"></script>
+
     <script>
+
+        // CITY
+
+        var urlParams = new URLSearchParams(window.location.search);
+
+        if ( ! urlParams.has('city') ) {
+            window.location.replace("index.html");
+        }
+
+        var city = urlParams.get('city');
 
         // MAP
 
@@ -104,37 +121,44 @@
             }
         });
 
-        var trees = [ 
-            new LeafIcon( { iconUrl: 'img/trees/tree1.png' } ), 
-            new LeafIcon( { iconUrl: 'img/trees/tree2.png' } ), 
-            new LeafIcon( { iconUrl: 'img/trees/tree3.png' } ),
-            new LeafIcon( { iconUrl: 'img/trees/tree1_todo.png' } ), 
-            new LeafIcon( { iconUrl: 'img/trees/tree2_todo.png' } ), 
-            new LeafIcon( { iconUrl: 'img/trees/tree3_todo.png' } )
+        var tree_icons = [ 
+            new LeafIcon( { iconUrl: 'img/tree1.png' } ), 
+            new LeafIcon( { iconUrl: 'img/tree2.png' } ), 
+            new LeafIcon( { iconUrl: 'img/tree3.png' } ),
+            new LeafIcon( { iconUrl: 'img/tree1_todo.png' } ), 
+            new LeafIcon( { iconUrl: 'img/tree2_todo.png' } ), 
+            new LeafIcon( { iconUrl: 'img/tree3_todo.png' } )
         ];
 
         // LOAD TREES
         
-        $.getJSON("data/london_select.json", function(data) {
+        $.getJSON("data/trees.json", function(data) {
+
+            var trees = data[city];
+
+            if (trees.length > 0) {
             
-            var less_trees = 5;
-            for (i = 0; i < less_trees * data.length - 1; i += less_trees) {
+                var less_trees = 10;
+
+                    for (i = 0; i < less_trees * trees.length - 1; i += less_trees) {
+                        
+                        if (trees[i]) {
+                            
+                            let tree = trees[i];
+                            let lat = tree['latitude'];
+                            let long = tree['longitude'];
+                            let icon = tree_icons[Math.floor(Math.random() * tree_icons.length)]; // random tree
+                            
+                            L.marker( [ lat, long ], { icon: icon } ).addTo(map).on('click', 
+                                function (event) {
+                                    if (event.latlng) {
+                                        map.setView(event.latlng); // Center MAP
+                                    }
+                                    sidebar.open('park');
+                                });
+                        };
+                    }
                 
-                if (data[i]) {
-                    
-                    let tree = data[i];
-                    let lat = tree['latitude'];
-                    let long = tree['longitude'];
-                    let icon = trees[Math.floor(Math.random() * trees.length)]; // random tree
-                    
-                    L.marker( [ lat, long ], { icon: icon } ).addTo(map).on('click', 
-                        function (event) {
-                            if (event.latlng) {
-                                map.setView(event.latlng); // Center MAP
-                            }
-                            sidebar.open('park');
-                        });
-                };
             }
         });
 
@@ -144,9 +168,6 @@
             style: function (feature) {
                 return feature.properties && feature.properties.style;
             },
-	        // onEachFeature: function (feature, layer) {
-		    //     layer.bindPopup(feature.properties.description);
-	        // }
         }).addTo(map);
 
     </script>
