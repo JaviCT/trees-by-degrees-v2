@@ -85,7 +85,7 @@
         <div class="bloc">
             
             <div class="content">
-                <span class="name">Trees planted today:</span>
+                <span class="name">Top Tree votes:</span>
                 <p class="presentation">
                     🌳🌳🌳🌳🌲🌲🌴
                 </p>
@@ -146,6 +146,8 @@
         var showTrees = false;
 
         // LOAD TREES
+
+        var blue_markers = [];
         
         $.getJSON("data/trees.json", function(data) {
 
@@ -169,31 +171,45 @@
                         let long = tree['longitude'];
                         let icon = tree_icons[Math.floor(Math.random() * tree_icons.length)]; // random tree
                         
-                        let marker = L.marker( [ lat, long ], { icon: icon } )
-                        marker.addTo(map)
+                        let marker = L.marker( [ lat, long ], { icon: icon } ).addTo(map);;
                     };
                 }
 
                 profile.onclick = function() {
 
-                    for (i = 0; i < less_trees * new_trees.length - 1; i += less_trees) {
-                    
-                        if (new_trees[i]) {
-                            
-                            let tree = new_trees[i];
-                            let lat = tree['latitude'];
-                            let long = tree['longitude'];
-                            let icon = new_icons[Math.floor(Math.random() * new_icons.length)]; // random tree
-                            
-                            marker = L.marker( [ lat, long ], { icon: icon } )
-                            marker.addTo(map).on('click', 
-                                function (event) {
-                                    if (event.latlng) {
-                                        map.setView(event.latlng); // Center MAP
-                                    }
-                                    sidebar.open('park');
-                                });
-                        };
+                    if (! showTrees) {
+
+                        for (i = 0; i < less_trees * new_trees.length - 1; i += less_trees) {
+                        
+                            if (new_trees[i]) {
+                                
+                                let tree = new_trees[i];
+                                let lat = tree['latitude'];
+                                let long = tree['longitude'];
+                                let icon = new_icons[Math.floor(Math.random() * new_icons.length)]; // random tree
+                                
+                                let marker = L.marker( [ lat, long ], { icon: icon } ).addTo(map).on('click', 
+                                    function (event) {
+                                        if (event.latlng) {
+                                            map.setView(event.latlng); // Center MAP
+                                        }
+                                        sidebar.open('park');
+                                    });
+                                blue_markers.push(marker);
+                            };
+                        }
+
+                        showTrees = true;
+                    }
+
+                    else {
+
+                        for (i = 0; i < blue_markers.length; i++) {
+                            map.removeLayer(blue_markers[i]); // remove
+                        }
+
+                        showTrees = false;
+
                     }
 
                 };
