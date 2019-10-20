@@ -34,6 +34,8 @@
 </head>
 <body>
 
+    <!-- SIDEBAR -->
+
     <div id="sidebar" class="sidebar collapsed">
     
         <div class="sidebar-tabs">
@@ -77,10 +79,25 @@
 
     </div>
     
+    <!-- MAP -->
+
     <div id="map" class="sidebar-map"></div>
 
+    <!-- HEATMAP DATA -->
+
     <script src="js/heatmap.js"></script>
+
     <script>
+
+        // CITY
+
+        var urlParams = new URLSearchParams(window.location.search);
+
+        if ( urlParams.has('city') ) {
+            window.location.replace("index.html");
+        }
+
+        var city = urlParams.get('city');
 
         // MAP
 
@@ -105,19 +122,21 @@
         });
 
         var trees = [ 
-            new LeafIcon( { iconUrl: 'img/trees/tree1.png' } ), 
-            new LeafIcon( { iconUrl: 'img/trees/tree2.png' } ), 
-            new LeafIcon( { iconUrl: 'img/trees/tree3.png' } ),
-            new LeafIcon( { iconUrl: 'img/trees/tree1_todo.png' } ), 
-            new LeafIcon( { iconUrl: 'img/trees/tree2_todo.png' } ), 
-            new LeafIcon( { iconUrl: 'img/trees/tree3_todo.png' } )
+            new LeafIcon( { iconUrl: 'img/tree1.png' } ), 
+            new LeafIcon( { iconUrl: 'img/tree2.png' } ), 
+            new LeafIcon( { iconUrl: 'img/tree3.png' } ),
+            new LeafIcon( { iconUrl: 'img/tree1_todo.png' } ), 
+            new LeafIcon( { iconUrl: 'img/tree2_todo.png' } ), 
+            new LeafIcon( { iconUrl: 'img/tree3_todo.png' } )
         ];
 
         // LOAD TREES
         
-        $.getJSON("data/london_select.json", function(data) {
+        $.getJSON("data/trees.json", function(data) {
+
+            var trees = data
             
-            var less_trees = 5;
+            var less_trees = 10;
             for (i = 0; i < less_trees * data.length - 1; i += less_trees) {
                 
                 if (data[i]) {
