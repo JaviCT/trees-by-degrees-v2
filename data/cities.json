@@ -2,8 +2,8 @@
   {
     "country": "United Kingdom",
     "name": "London",
-    "lat": "42.46372",
-    "lng": "1.49129"
+    "lat": "51.509",
+    "lng": "-0.08"
   },
   {
     "country": "Ireland",
@@ -40,5 +40,11 @@
     "name": "Tokio",
     "lat": "42.54277",
     "lng": "1.73361"
+  },
+  {
+    "country": "United States of America",
+    "name": "San Francisco",
+    "lat": "37.7934262",
+    "lng": "-122.437451,17"
   }
 ]
