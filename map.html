@@ -76,6 +76,24 @@
 
     <script src="js/heatmap.js"></script>
 
+    <!-- PROFILE -->
+
+    <div id="profile" class="my-profile" style="z-index:1000; position: fixed; top: 5px; right: 15px; border: 5px; cursor: pointer;">
+
+        <img src="img/me_small.jpg" class="profile-picture" />
+    
+        <div class="bloc">
+            
+            <div class="content">
+                <span class="name">Trees planted today:</span>
+                <p class="presentation">
+                    🌳🌳🌳🌳🌲🌲🌴
+                </p>
+            </div>
+
+        </div>
+    </div>
+
     <script>
 
         // CITY
@@ -114,10 +132,18 @@
             new LeafIcon( { iconUrl: 'img/tree1.png' } ), 
             new LeafIcon( { iconUrl: 'img/tree2.png' } ), 
             new LeafIcon( { iconUrl: 'img/tree3.png' } ),
+        ];
+
+        var new_icons = [
             new LeafIcon( { iconUrl: 'img/tree1_todo.png' } ), 
             new LeafIcon( { iconUrl: 'img/tree2_todo.png' } ), 
-            new LeafIcon( { iconUrl: 'img/tree3_todo.png' } )
-        ];
+            new LeafIcon( { iconUrl: 'img/tree3_todo.png' } ),
+        ]
+
+        // PROFILE
+
+        var profile = document.getElementById('profile');
+        var showTrees = false;
 
         // LOAD TREES
         
@@ -126,27 +152,51 @@
             var trees = data[city];
 
             if (trees.length > 0) {
+
+                var existing_trees = trees.slice(0, trees.length / 2);
+                console.log(existing_trees);
+                var new_trees = trees.slice(trees.length / 2);
+                console.log(new_trees);
             
                 var less_trees = 10;
 
-                for (i = 0; i < less_trees * trees.length - 1; i += less_trees) {
+                for (i = 0; i < less_trees * existing_trees.length - 1; i += less_trees) {
                     
-                    if (trees[i]) {
+                    if (existing_trees[i]) {
                         
-                        let tree = trees[i];
+                        let tree = existing_trees[i];
                         let lat = tree['latitude'];
                         let long = tree['longitude'];
                         let icon = tree_icons[Math.floor(Math.random() * tree_icons.length)]; // random tree
                         
-                        L.marker( [ lat, long ], { icon: icon } ).addTo(map).on('click', 
-                            function (event) {
-                                if (event.latlng) {
-                                    map.setView(event.latlng); // Center MAP
-                                }
-                                sidebar.open('park');
-                            });
+                        let marker = L.marker( [ lat, long ], { icon: icon } )
+                        marker.addTo(map)
                     };
                 }
+
+                profile.onclick = function() {
+
+                    for (i = 0; i < less_trees * new_trees.length - 1; i += less_trees) {
+                    
+                        if (new_trees[i]) {
+                            
+                            let tree = new_trees[i];
+                            let lat = tree['latitude'];
+                            let long = tree['longitude'];
+                            let icon = new_icons[Math.floor(Math.random() * new_icons.length)]; // random tree
+                            
+                            marker = L.marker( [ lat, long ], { icon: icon } )
+                            marker.addTo(map).on('click', 
+                                function (event) {
+                                    if (event.latlng) {
+                                        map.setView(event.latlng); // Center MAP
+                                    }
+                                    sidebar.open('park');
+                                });
+                        };
+                    }
+
+                };
             }
         });
 
@@ -160,21 +210,7 @@
 
     </script>
 
-    <div class="my-profile" style="z-index:1000; position: fixed; top: 5px; right: 15px; border: 5px; cursor: pointer;">
 
-        <img src="img/me_small.jpg" class="profile-picture" />
-    
-        <div class="bloc">
-            
-            <div class="content">
-                <span class="name">Trees planted today:</span>
-                <p class="presentation">
-                    🌳🌳🌳🌳🌲🌲🌴
-                </p>
-            </div>
-
-        </div>
-    </div>
 
 </body>
 </html>
