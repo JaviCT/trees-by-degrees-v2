@@ -134,26 +134,31 @@
         
         $.getJSON("data/trees.json", function(data) {
 
-            var trees = data
+            var trees = data[city]
+
+            if (trees) {
             
             var less_trees = 10;
-            for (i = 0; i < less_trees * data.length - 1; i += less_trees) {
-                
-                if (data[i]) {
+
+                for (i = 0; i < less_trees * trees.length - 1; i += less_trees) {
                     
-                    let tree = data[i];
-                    let lat = tree['latitude'];
-                    let long = tree['longitude'];
-                    let icon = trees[Math.floor(Math.random() * trees.length)]; // random tree
-                    
-                    L.marker( [ lat, long ], { icon: icon } ).addTo(map).on('click', 
-                        function (event) {
-                            if (event.latlng) {
-                                map.setView(event.latlng); // Center MAP
-                            }
-                            sidebar.open('park');
-                        });
-                };
+                    if (data[i]) {
+                        
+                        let tree = trees[i];
+                        let lat = tree['latitude'];
+                        let long = tree['longitude'];
+                        let icon = trees[Math.floor(Math.random() * trees.length)]; // random tree
+                        
+                        L.marker( [ lat, long ], { icon: icon } ).addTo(map).on('click', 
+                            function (event) {
+                                if (event.latlng) {
+                                    map.setView(event.latlng); // Center MAP
+                                }
+                                sidebar.open('park');
+                            });
+                    };
+                }
+
             }
         });
 
