@@ -1,0 +1,29 @@
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	align-items: center;
+	background-color: #315a7d;
+	display: flex;
+	font-family: 'Luckiest Guy';
+	height: 100vh;
+	justify-content: center;
+}
+
+.texto3d {
+	color: #eeeeee;
+	font-size: 5em;
+	text-shadow: 1px 1px #111, 2px 2px #111, 3px 3px #111, 4px 4px #111, 5px 5px #111,
+							 6px 6px #111, 7px 7px #111, 8px 8px #111, 9px 9px #111, 10px 10px #111,
+							 11px 11px #111, 12px 12px #111, 13px 13px #111, 14px 14px #111, 15px 15px #111,
+							 16px 16px #111, 17px 17px #111, 18px 18px #111, 19px 19px #111, 20px 20px #111,
+							 21px 21px #111, 22px 22px #111, 23px 23px #111, 24px 24px #111, 25px 25px #111,
+							 26px 26px #111, 27px 27px #111, 28px 28px #111, 29px 29px #111, 30px 30px #111,
+							 31px 31px #111, 32px 32px #111, 33px 33px #111, 34px 34px #111, 35px 35px #111,
+							 36px 36px #111, 37px 37px #111, 38px 38px #111, 39px 39px #111, 40px 40px #111;
+	-webkit-transform: rotate(-6deg);
+	        transform: rotate(-6deg);
+}

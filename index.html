@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="css/bootstrap.4.3.1.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="js/jquery-2.1.0.min.js"></script>
     <link rel="stylesheet" href="css/style.css">
-    
+
     <style>
         body {
             padding: 0;
@@ -28,9 +28,9 @@
     <!--
     <h1 class="title1 display-4" style="position: absolute; z-index: 1; color: aliceblue; left: 35%;">Trees By Degrees</h1>
     -->
-
-    <div style="position: absolute; z-index: 1; top: 50%; left: 40%; width: 400px;">
-        <select id="dropdown" class="custom-select float-left" style="width: 250px;">
+    <h1 style="position: absolute;left: 30%;font-size: 100px; color: black; line-height: 1.6;font-family: Arial, Helvetica, sans-serif">Trees by Degrees</h1>
+    <div style="position: absolute; z-index: 1; top: 70%; left: 40%; width: 600px;">
+        <select id="dropdown" class="custom-select float-left" style="width: 350px;font-size: 30px">
             <option value="" disabled selected>Choose your city</option>
             <option value="dublin">Dublin</option>
             <option value="london">London</option>
@@ -43,10 +43,12 @@
     <a href="map.html" type="button" class="btn btn-primary float-right" style="width: 150px;">Go to city</a>
     -->
     
-    <div class="viewer" style="height: 100%;">
+    <!-- <div class="viewer" style="height: 100%;">
         <iframe class="viewer" style="width: 100%; height: 100%;" src="https://jeromeetienne.github.io/threex.planets/examples/earth.html" frameborder="0"></iframe>
-    </div>
-
+    </div> -->
+    
+    <canvas id="canvas" ></canvas>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/three.js/103/three.min.js'></script><script  src="js/landing.js"></script>
     <script>
 
         // SELECT
