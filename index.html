@@ -106,12 +106,11 @@
 
             let city = dropdown.value;
             for (var i = 0; i < cities.length; i++) {
-                if (cities[i].country === city){
+                if (cities[i].name === city){
                     selectedCity = cities[i]
+                    window.location.href = "map.html?city=" + city + "&lat=" + selectedCity.lat + "&long=" + selectedCity.lng;
                 }
-                
             }
-            window.location.href = "map.html?city=" + city + "&lat=" + selectedCity.lat + "&long=" + selectedCity.lng;
             
         });
 
@@ -150,11 +149,10 @@
                             .append('<option value="" selected>Choose Your City</option>')
                             .val('whatever')
                         ;
-                        
 
                         for (var i = 0; i < cities.length; i++) {
                             if (cities[i].country === city){
-                                selectedCity = cities[i]
+                                // selectedCity = cities[i]
                                 var x = document.getElementById("dropdown");
                                 var option = document.createElement("option");
                                 option.text = cities[i].name;

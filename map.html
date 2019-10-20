@@ -105,13 +105,15 @@
         }
 
         var city = urlParams.get('city');
+        var lat = urlParams.get('lat');
+        var long = urlParams.get('long');
 
         // MAP
 
         var key = '68fc6881bbfee411f30452ab9a919dcc'
 
         var map = L.eeGeo.map('map', key, {
-            center: [ 51.509, -0.08 ],
+            center: [ lat, long ],
             zoom: 16
         });
 

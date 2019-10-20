@@ -1,5 +1,5 @@
 { 
-  "london": [
+  "London": [
   {
     "longitude": -0.09923956420276242,
     "latitude": 51.51286049483305
@@ -40368,8 +40368,8 @@
     "longitude": -0.11304228857847588,
     "latitude": 51.51107263282369
   }
-],
-"sanfrancisco": [
+  ],
+  "San Francisco": [
   {
     "latitude": 37.7882727405519,
     "longitude": -122.485691564741
