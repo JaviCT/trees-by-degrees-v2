@@ -93,7 +93,7 @@
 
         var urlParams = new URLSearchParams(window.location.search);
 
-        if ( urlParams.has('city') ) {
+        if ( ! urlParams.has('city') ) {
             window.location.replace("index.html");
         }
 
@@ -121,7 +121,7 @@
             }
         });
 
-        var trees = [ 
+        var tree_icons = [ 
             new LeafIcon( { iconUrl: 'img/tree1.png' } ), 
             new LeafIcon( { iconUrl: 'img/tree2.png' } ), 
             new LeafIcon( { iconUrl: 'img/tree3.png' } ),
@@ -134,31 +134,31 @@
         
         $.getJSON("data/trees.json", function(data) {
 
-            var trees = data[city]
+            var trees = data[city];
 
-            if (trees) {
+            if (trees.length > 0) {
             
-            var less_trees = 10;
+                var less_trees = 10;
 
-                for (i = 0; i < less_trees * trees.length - 1; i += less_trees) {
-                    
-                    if (data[i]) {
+                    for (i = 0; i < less_trees * trees.length - 1; i += less_trees) {
                         
-                        let tree = trees[i];
-                        let lat = tree['latitude'];
-                        let long = tree['longitude'];
-                        let icon = trees[Math.floor(Math.random() * trees.length)]; // random tree
-                        
-                        L.marker( [ lat, long ], { icon: icon } ).addTo(map).on('click', 
-                            function (event) {
-                                if (event.latlng) {
-                                    map.setView(event.latlng); // Center MAP
-                                }
-                                sidebar.open('park');
-                            });
-                    };
-                }
-
+                        if (trees[i]) {
+                            
+                            let tree = trees[i];
+                            let lat = tree['latitude'];
+                            let long = tree['longitude'];
+                            let icon = tree_icons[Math.floor(Math.random() * tree_icons.length)]; // random tree
+                            
+                            L.marker( [ lat, long ], { icon: icon } ).addTo(map).on('click', 
+                                function (event) {
+                                    if (event.latlng) {
+                                        map.setView(event.latlng); // Center MAP
+                                    }
+                                    sidebar.open('park');
+                                });
+                        };
+                    }
+                
             }
         });
 
@@ -168,9 +168,6 @@
             style: function (feature) {
                 return feature.properties && feature.properties.style;
             },
-	        // onEachFeature: function (feature, layer) {
-		    //     layer.bindPopup(feature.properties.description);
-	        // }
         }).addTo(map);
 
     </script>
