@@ -19,6 +19,10 @@ a {
 	text-decoration:none;
 	outline:none;}
 
+#canvas {
+background:#7cdabd;
+}
+	
 body {
 	margin:0;
 	padding:0;
