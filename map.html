@@ -7,7 +7,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico" />
+    <!-- <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico" /> -->
 
     <link rel="stylesheet" href="css/leaflet.css" />
     <link rel="stylesheet" href="css/sidebar.css" />
@@ -42,7 +42,6 @@
                 <li class="disabled"><a href="#tree" role="tab"><i class="fa fa-feather"></i></a></li>
             </ul>
             <ul role="tablist">
-                <li><a href="#contact" role="tab"><i class="fa fa-home"></i></a></li>
                 <li><a href="https://github.com/dazcona" role="tab" target="_blank"><i class="fa fa-home"></i></a></li>
             </ul>
         </div>
@@ -51,26 +50,25 @@
 
             <div class="sidebar-pane" id="park">
                 <h1 class="sidebar-header">
-                    Espacios Dotacionales
+                    Prunus Padus
                     <span class="sidebar-close">
                         <i class="fa fa-caret-left"></i>
                     </span>
                 </h1>
-                <p>Estos edificios públicos se destinan para:</p>
-                <ul>
-                    <li>Colegios</li>
-                    <li>Centro de Salud</li>
-                    <li>Biblioteca</li>
-                </ul>
+                <h1>How to Plant a Prunus Padus</h1><br>
+                <h2>Follow the following steps:</h2>
+                <img width="100%" src="img/how_to_plant_a_tree.png"><br>
+                <a target="_blank" href="https://www.thegardenshop.ie/how-to-plant-a-tree-from-containers/">https://www.thegardenshop.ie/how-to-plant-a-tree-from-containers/</a>
+                <p> Prunus padus, known as bird cherry, hackberry, hagberry, or Mayday tree, is a flowering plant in the rose family Rosaceae. It is a species of cherry, a deciduous small tree or large shrub up to 16 m tall. It is the type species of the subgenus Padus, which have flowers in racemes.</p>
             </div>
 
             <div class="sidebar-pane" id="contact">
                 <h1 class="sidebar-header">
-                    Contacto
+                    Contact
                     <span class="sidebar-close">
                     <i class="fa fa-caret-left"></i></span>
                 </h1>
-                <p>Para más información, por favor contactar con: <br>
+                <p>Email: <br>
                     <a href="mailto:david.azcona.perez@gmail.com">david.azcona.perez@gmail.com</a>
                 </p>
             </div>
@@ -80,7 +78,8 @@
     </div>
     
     <div id="map" class="sidebar-map"></div>
-    
+
+    <script src="js/heatmap.js"></script>
     <script>
 
         // MAP
@@ -113,11 +112,13 @@
             new LeafIcon( { iconUrl: 'img/trees/tree2_todo.png' } ), 
             new LeafIcon( { iconUrl: 'img/trees/tree3_todo.png' } )
         ];
+
+        // LOAD TREES
         
         $.getJSON("data/london_select.json", function(data) {
             
-            var less_trees = 10;
-            for (i = 0; i < less_trees * data.length - 1; i+=less_trees) {
+            var less_trees = 5;
+            for (i = 0; i < less_trees * data.length - 1; i += less_trees) {
                 
                 if (data[i]) {
                     
@@ -133,44 +134,48 @@
                             }
                             sidebar.open('park');
                         });
-
                 };
             }
-        
         });
 
+        // LOAD HEATMAPS
 
+        L.geoJSON(heatmap, {
+            style: function (feature) {
+                return feature.properties && feature.properties.style;
+            },
+	        // onEachFeature: function (feature, layer) {
+		    //     layer.bindPopup(feature.properties.description);
+	        // }
+        }).addTo(map);
 
     </script>
 
-<div class="my-profile" style="position: fixed; top: 5px; right: 15px; border: 5px;">
+    <div class="my-profile" style="position: fixed; top: 5px; right: 15px; border: 5px;">
 
-    <img src="img/me_small.jpg" class="profile-picture" />
-    <div class="bloc">
-        <div class="content">
-            <span class="name">Enric Moreu</span>
-            <h1 class="fonction">PhD candidate, Dublin</h1>
+        <img src="img/me_small.jpg" class="profile-picture" />
+    
+        <div class="bloc">
+            
+            <div class="content">
+                <span class="name">Enric Moreu</span>
+                <h1 class="fonction">PhD candidate, Dublin</h1>
+                <p class="presentation">
+                    Trees planted:
+                    🌳🌳🌳🌳🌲🌲🌴
+                </p>
+            </div>
 
-            <p class="presentation">
-                Trees planted:
-                🌳🌳🌳🌳🌲🌲🌴
-            </p>
-
+            <ul class="social-media">
+                <li style="border-left:3px solid #44abd1;background: #00aced;">
+                    Profile
+                <li style="border-left:3px solid #cf78cf;background: #cf78cf;">
+                    Friends
+                <li style="border-left:3px solid #db6d6d;background: #db6d6d;">
+                    Log out
+            </ul>
         </div>
-
-        <ul class="social-media">
-
-
-            <li style="border-left:3px solid #44abd1;background: #00aced;">
-                Profile
-
-            <li style="border-left:3px solid #cf78cf;background: #cf78cf;">
-                Friends
-            <li style="border-left:3px solid #db6d6d;background: #db6d6d;">
-                Log out
-        </ul>
-
     </div>
-</div>
+
 </body>
 </html>

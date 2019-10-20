@@ -3,8 +3,11 @@
   <head>
     <meta charset="utf-8">
     <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico" />
-    <title>Trees by degrees</title>
-  
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="js/jquery-2.1.0.min.js"></script> 
+    <link rel="stylesheet" href="css/style.css">  
+    <title>🌳 Trees by degrees 🌍</title>
+    
     <style>
         body {
             padding: 0;
@@ -16,20 +19,22 @@
     </style>
 
 </head>
-<body>
+<body style="height: 100%;">
     
-    <div class="viewer">
-    
-        <p class="title1 display-4">Trees By Degrees</p>
-        
-        <iframe class="viewer" src="https://jeromeetienne.github.io/threex.planets/examples/earth.html" frameborder="0"/>
-            
-        <div class="selector">    
-        </div>
-
-        <a href="map.html">MAP</a>
-    
+    <h1 class="title1 display-4" style="position: absolute; z-index: 1; color: aliceblue; left: 35%;">Trees By Degrees</h1>
+    <div style="position: absolute; z-index: 1; top: 50%; left: 40%; width: 400px;">
+        <select class="custom-select float-left" style="width: 250px;">
+            <option>Dublin</option>
+            <option selected>London</option>
+            <option>Barcelona</option>
+            <option>Tokio</option>
+        </select>
+        <a href="map.html" type="button" class="btn btn-primary float-right" style="width: 150px;">Go to city</a>
     </div>
+    <div class="viewer" style="height: 100%;">
+        <iframe class="viewer" style="width: 100%; height: 100%;" src="https://jeromeetienne.github.io/threex.planets/examples/earth.html" frameborder="0"></iframe>
+    </div>
+    
     
 </body>
 </html>
