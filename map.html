@@ -34,15 +34,17 @@
 </head>
 <body>
 
-    <div id="sidebar" class="sidebar collapsed">
+    <!-- SIDEBAR -->
+
+    <div id="sidebar" style="border-radius: 35px;" class="sidebar collapsed">
     
         <div class="sidebar-tabs">
             <ul role="tablist">
                 <li><a href="#home" role="tab"><i class="fa fa-bars"></i></a></li>
-                <li class="disabled"><a href="#tree" role="tab"><i class="fa fa-feather"></i></a></li>
+                <!-- <li class="disabled"><a href="#tree" role="tab"><i class="fa fa-feather"></i></a></li> -->
             </ul>
             <ul role="tablist">
-                <li><a href="https://github.com/dazcona" role="tab" target="_blank"><i class="fa fa-home"></i></a></li>
+                <li><a href="/" role="tab"><i class="fa fa-home"></i></a></li>
             </ul>
         </div>
                     
@@ -55,32 +57,54 @@
                         <i class="fa fa-caret-left"></i>
                     </span>
                 </h1>
-                <h1>How to Plant a Prunus Padus</h1><br>
+                <h1>How to Plant a Prunus Padus</h1>
                 <h2>Follow the following steps:</h2>
                 <img width="100%" src="img/how_to_plant_a_tree.png"><br>
                 <a target="_blank" href="https://www.thegardenshop.ie/how-to-plant-a-tree-from-containers/">https://www.thegardenshop.ie/how-to-plant-a-tree-from-containers/</a>
                 <p> Prunus padus, known as bird cherry, hackberry, hagberry, or Mayday tree, is a flowering plant in the rose family Rosaceae. It is a species of cherry, a deciduous small tree or large shrub up to 16 m tall. It is the type species of the subgenus Padus, which have flowers in racemes.</p>
             </div>
 
-            <div class="sidebar-pane" id="contact">
-                <h1 class="sidebar-header">
-                    Contact
-                    <span class="sidebar-close">
-                    <i class="fa fa-caret-left"></i></span>
-                </h1>
-                <p>Email: <br>
-                    <a href="mailto:david.azcona.perez@gmail.com">david.azcona.perez@gmail.com</a>
-                </p>
-            </div>
-
         </div>
 
     </div>
     
+    <!-- MAP -->
+
     <div id="map" class="sidebar-map"></div>
 
+    <!-- HEATMAP DATA -->
+
     <script src="js/heatmap.js"></script>
+
+    <!-- PROFILE -->
+
+    <div id="profile" class="my-profile" style="z-index:1000; position: fixed; top: 5px; right: 15px; border: 5px; cursor: pointer;">
+
+        <img src="img/me_small.jpg" class="profile-picture" />
+    
+        <div class="bloc">
+            
+            <div class="content">
+                <span class="name">Trees planted today:</span>
+                <p class="presentation">
+                    🌳🌳🌳🌳🌲🌲🌴
+                </p>
+            </div>
+
+        </div>
+    </div>
+
     <script>
+
+        // CITY
+
+        var urlParams = new URLSearchParams(window.location.search);
+
+        if ( ! urlParams.has('city') ) {
+            window.location.replace("/");
+        }
+
+        var city = urlParams.get('city');
 
         // MAP
 
@@ -104,36 +128,74 @@
             }
         });
 
-        var trees = [ 
-            new LeafIcon( { iconUrl: 'img/trees/tree1.png' } ), 
-            new LeafIcon( { iconUrl: 'img/trees/tree2.png' } ), 
-            new LeafIcon( { iconUrl: 'img/trees/tree3.png' } ),
-            new LeafIcon( { iconUrl: 'img/trees/tree1_todo.png' } ), 
-            new LeafIcon( { iconUrl: 'img/trees/tree2_todo.png' } ), 
-            new LeafIcon( { iconUrl: 'img/trees/tree3_todo.png' } )
+        var tree_icons = [ 
+            new LeafIcon( { iconUrl: 'img/tree1.png' } ), 
+            new LeafIcon( { iconUrl: 'img/tree2.png' } ), 
+            new LeafIcon( { iconUrl: 'img/tree3.png' } ),
         ];
+
+        var new_icons = [
+            new LeafIcon( { iconUrl: 'img/tree1_todo.png' } ), 
+            new LeafIcon( { iconUrl: 'img/tree2_todo.png' } ), 
+            new LeafIcon( { iconUrl: 'img/tree3_todo.png' } ),
+        ]
+
+        // PROFILE
+
+        var profile = document.getElementById('profile');
+        var showTrees = false;
 
         // LOAD TREES
         
-        $.getJSON("data/london_select.json", function(data) {
+        $.getJSON("data/trees.json", function(data) {
+
+            var trees = data[city];
+
+            if (trees.length > 0) {
+
+                var existing_trees = trees.slice(0, trees.length / 2);
+                console.log(existing_trees);
+                var new_trees = trees.slice(trees.length / 2);
+                console.log(new_trees);
             
-            var less_trees = 5;
-            for (i = 0; i < less_trees * data.length - 1; i += less_trees) {
-                
-                if (data[i]) {
+                var less_trees = 10;
+
+                for (i = 0; i < less_trees * existing_trees.length - 1; i += less_trees) {
                     
-                    let tree = data[i];
-                    let lat = tree['latitude'];
-                    let long = tree['longitude'];
-                    let icon = trees[Math.floor(Math.random() * trees.length)]; // random tree
+                    if (existing_trees[i]) {
+                        
+                        let tree = existing_trees[i];
+                        let lat = tree['latitude'];
+                        let long = tree['longitude'];
+                        let icon = tree_icons[Math.floor(Math.random() * tree_icons.length)]; // random tree
+                        
+                        let marker = L.marker( [ lat, long ], { icon: icon } )
+                        marker.addTo(map)
+                    };
+                }
+
+                profile.onclick = function() {
+
+                    for (i = 0; i < less_trees * new_trees.length - 1; i += less_trees) {
                     
-                    L.marker( [ lat, long ], { icon: icon } ).addTo(map).on('click', 
-                        function (event) {
-                            if (event.latlng) {
-                                map.setView(event.latlng); // Center MAP
-                            }
-                            sidebar.open('park');
-                        });
+                        if (new_trees[i]) {
+                            
+                            let tree = new_trees[i];
+                            let lat = tree['latitude'];
+                            let long = tree['longitude'];
+                            let icon = new_icons[Math.floor(Math.random() * new_icons.length)]; // random tree
+                            
+                            marker = L.marker( [ lat, long ], { icon: icon } )
+                            marker.addTo(map).on('click', 
+                                function (event) {
+                                    if (event.latlng) {
+                                        map.setView(event.latlng); // Center MAP
+                                    }
+                                    sidebar.open('park');
+                                });
+                        };
+                    }
+
                 };
             }
         });
@@ -144,38 +206,11 @@
             style: function (feature) {
                 return feature.properties && feature.properties.style;
             },
-	        // onEachFeature: function (feature, layer) {
-		    //     layer.bindPopup(feature.properties.description);
-	        // }
         }).addTo(map);
 
     </script>
 
-    <div class="my-profile" style="position: fixed; top: 5px; right: 15px; border: 5px;">
 
-        <img src="img/me_small.jpg" class="profile-picture" />
-    
-        <div class="bloc">
-            
-            <div class="content">
-                <span class="name">Enric Moreu</span>
-                <h1 class="fonction">PhD candidate, Dublin</h1>
-                <p class="presentation">
-                    Trees planted:
-                    🌳🌳🌳🌳🌲🌲🌴
-                </p>
-            </div>
-
-            <ul class="social-media">
-                <li style="border-left:3px solid #44abd1;background: #00aced;">
-                    Profile
-                <li style="border-left:3px solid #cf78cf;background: #cf78cf;">
-                    Friends
-                <li style="border-left:3px solid #db6d6d;background: #db6d6d;">
-                    Log out
-            </ul>
-        </div>
-    </div>
 
 </body>
 </html>
